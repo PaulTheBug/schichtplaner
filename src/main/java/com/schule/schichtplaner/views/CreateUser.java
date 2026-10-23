@@ -1,9 +1,11 @@
 package com.schule.schichtplaner.views;
 
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import com.schule.schichtplaner.entitys.Mitarbeiter;
+import com.schule.schichtplaner.entitys.Permission;
 import com.schule.schichtplaner.repositories.MitarbeiterRepository;
+import com.schule.schichtplaner.repositories.PermissionRepository;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.formlayout.FormLayout;
 import com.vaadin.flow.component.html.H1;
@@ -13,16 +15,21 @@ import com.vaadin.flow.component.textfield.PasswordField;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.router.Route;
 
-import jakarta.annotation.security.PermitAll;
+import jakarta.annotation.security.RolesAllowed;
 
-@Route("/create-user")
-@PermitAll
+@Route(value = "/create-user", layout = MainLayout.class)
+@RolesAllowed("ADMIN")
 public class CreateUser extends VerticalLayout {
 
     private final MitarbeiterRepository mitarbeiterRepository;
+    private final PermissionRepository permissionRepository;
+    private final PasswordEncoder passwordEncoder;
 
-    public CreateUser(MitarbeiterRepository mitarbeiterRepository) {
+    public CreateUser(MitarbeiterRepository mitarbeiterRepository,
+            PermissionRepository permissionRepository, PasswordEncoder passwordEncoder) {
         this.mitarbeiterRepository = mitarbeiterRepository;
+        this.permissionRepository = permissionRepository;
+        this.passwordEncoder = passwordEncoder;
 
         H1 title = new H1("Benutzer erstellen");
         add(title);
@@ -48,8 +55,13 @@ public class CreateUser extends VerticalLayout {
 
             Mitarbeiter mitarbeiter = new Mitarbeiter();
             mitarbeiter.setBenutzername(benutzername);
-            BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
             mitarbeiter.setPasswort(passwordEncoder.encode(passwort));
+            Permission userPermission = permissionRepository.findByName("USER")
+                    .orElseGet(() -> {
+                        Permission permission = new Permission("USER");
+                        return permissionRepository.save(permission);
+                    });
+            mitarbeiter.setPermission(userPermission);
 
             mitarbeiterRepository.save(mitarbeiter);
             Notification.show("Benutzer erfolgreich erstellt.");

@@ -5,6 +5,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
 
 @Entity
 public class Mitarbeiter {
@@ -24,8 +25,10 @@ public class Mitarbeiter {
     private String benutzername;
     @Column(nullable = false)
     private String passwort;
-	@Column (name = "permission" , nullable = false)
-	private String permission;
+	
+    @ManyToOne
+	private Permission permission;
+
 
     public Mitarbeiter() {
     }
@@ -38,6 +41,7 @@ public class Mitarbeiter {
         this.adresse = adresse;
         this.abteilung = abteilung;
         this.urlaubUebrig = urlaubUebrig;
+
     }
 
     public String getBenutzername() {
@@ -108,11 +112,11 @@ public class Mitarbeiter {
         this.urlaubUebrig = urlaubUebrig;
     }
 
-    public void setPermission(String permission) {
+    public void setPermission(Permission permission) {
         this.permission = permission;
     }
 
-    public String getPermission() {
+    public Permission getPermission() {
         return permission;
     }
 

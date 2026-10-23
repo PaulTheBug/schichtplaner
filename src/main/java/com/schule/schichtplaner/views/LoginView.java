@@ -26,6 +26,7 @@ public class LoginView extends Main implements BeforeEnterObserver {
         layout.setJustifyContentMode(FlexComponent.JustifyContentMode.CENTER);
         layout.add(login);
         layout.setSizeFull();
+        
 
         add(layout);
         setSizeFull();

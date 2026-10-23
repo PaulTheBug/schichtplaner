@@ -1,25 +1,29 @@
 package com.schule.schichtplaner.entitys;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 
 @Entity 
 public class Permission {
 
-    @Id
-    private String id;
+    @Id 
+    @GeneratedValue 
+    private Integer id;
     private String name;
 
+    public Permission() {
+    }
 
     public Permission(String name) {
         this.name = name;
     }
 
-    public String getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

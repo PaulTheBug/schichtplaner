@@ -22,7 +22,7 @@ import com.vaadin.flow.router.Route;
 
 import jakarta.annotation.security.PermitAll;
 
-@Route("/home")
+@Route(value = "/home", layout = MainLayout.class)
 @PermitAll
 public class HomeView extends VerticalLayout {
 
