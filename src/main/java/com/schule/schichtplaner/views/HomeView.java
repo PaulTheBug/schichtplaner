@@ -91,8 +91,8 @@ public class HomeView extends VerticalLayout {
         einsatzGrid.addColumn(einsatz -> einsatz.getMitarbeiter().getVorname() + " "
                 + einsatz.getMitarbeiter().getNachname()).setHeader("Mitarbeiter");
         einsatzGrid.addColumn(einsatz -> einsatz.getSchicht().getSchichtart()).setHeader("Schicht");
-        einsatzGrid.addColumn(Einsatz::getDatumVon).setHeader("Von");
-        einsatzGrid.addColumn(Einsatz::getDatumBis).setHeader("Bis");
+        einsatzGrid.addColumn(einsatz -> einsatz.getDatumVon().format(DATE_FORMAT)).setHeader("Von");
+        einsatzGrid.addColumn(einsatz -> einsatz.getDatumBis().format(DATE_FORMAT)).setHeader("Bis");
         einsatzGrid.setItems(einsatzRepository.findAll());
         einsatzGrid.setWidthFull();
 
