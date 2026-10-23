@@ -6,85 +6,114 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
-
 @Entity
 public class Mitarbeiter {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "mid")
-	private Integer id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "mid")
+    private Integer id;
 
-	private String vorname;
-	private String nachname;
-	private Integer alter;
-	private String adresse;
-	private String abteilung;
-	private Integer urlaubUebrig;
+    private String vorname;
+    private String nachname;
+    private Integer alter;
+    private String adresse;
+    private String abteilung;
+    private Integer urlaubUebrig;
+    @Column(nullable = false, unique = true)
+    private String benutzername;
+    @Column(nullable = false)
+    private String passwort;
+	@Column (name = "permission" , nullable = false)
+	private String permission;
 
-	protected Mitarbeiter() {
-	}
+    public Mitarbeiter() {
+    }
 
-	public Mitarbeiter(String vorname, String nachname, Integer alter, String adresse,
-			String abteilung, Integer urlaubUebrig) {
-		this.vorname = vorname;
-		this.nachname = nachname;
-		this.alter = alter;
-		this.adresse = adresse;
-		this.abteilung = abteilung;
-		this.urlaubUebrig = urlaubUebrig;
-	}
+    public Mitarbeiter(String vorname, String nachname, Integer alter, String adresse,
+            String abteilung, Integer urlaubUebrig) {
+        this.vorname = vorname;
+        this.nachname = nachname;
+        this.alter = alter;
+        this.adresse = adresse;
+        this.abteilung = abteilung;
+        this.urlaubUebrig = urlaubUebrig;
+    }
 
-	public Integer getId() {
-		return id;
-	}
+    public String getBenutzername() {
+        return benutzername;
+    }
 
-	public String getVorname() {
-		return vorname;
-	}
+    public void setBenutzername(String benutzername) {
+        this.benutzername = benutzername;
+    }
 
-	public void setVorname(String vorname) {
-		this.vorname = vorname;
-	}
+    public String getPasswort() {
+        return passwort;
+    }
 
-	public String getNachname() {
-		return nachname;
-	}
+    public void setPasswort(String passwort) {
+        this.passwort = passwort;
+    }
 
-	public void setNachname(String nachname) {
-		this.nachname = nachname;
-	}
+    public Integer getId() {
+        return id;
+    }
 
-	public Integer getAlter() {
-		return alter;
-	}
+    public String getVorname() {
+        return vorname;
+    }
 
-	public void setAlter(Integer alter) {
-		this.alter = alter;
-	}
+    public void setVorname(String vorname) {
+        this.vorname = vorname;
+    }
 
-	public String getAdresse() {
-		return adresse;
-	}
+    public String getNachname() {
+        return nachname;
+    }
 
-	public void setAdresse(String adresse) {
-		this.adresse = adresse;
-	}
+    public void setNachname(String nachname) {
+        this.nachname = nachname;
+    }
 
-	public String getAbteilung() {
-		return abteilung;
-	}
+    public Integer getAlter() {
+        return alter;
+    }
 
-	public void setAbteilung(String abteilung) {
-		this.abteilung = abteilung;
-	}
+    public void setAlter(Integer alter) {
+        this.alter = alter;
+    }
 
-	public Integer getUrlaubUebrig() {
-		return urlaubUebrig;
-	}
+    public String getAdresse() {
+        return adresse;
+    }
 
-	public void setUrlaubUebrig(Integer urlaubUebrig) {
-		this.urlaubUebrig = urlaubUebrig;
-	}
+    public void setAdresse(String adresse) {
+        this.adresse = adresse;
+    }
+
+    public String getAbteilung() {
+        return abteilung;
+    }
+
+    public void setAbteilung(String abteilung) {
+        this.abteilung = abteilung;
+    }
+
+    public Integer getUrlaubUebrig() {
+        return urlaubUebrig;
+    }
+
+    public void setUrlaubUebrig(Integer urlaubUebrig) {
+        this.urlaubUebrig = urlaubUebrig;
+    }
+
+    public void setPermission(String permission) {
+        this.permission = permission;
+    }
+
+    public String getPermission() {
+        return permission;
+    }
 
 }
